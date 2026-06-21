@@ -1,0 +1,139 @@
+// ============================================================
+// TYPES — Interfaces que espejean el schema Prisma del backend
+// ============================================================
+
+export interface Category {
+  id: number;
+  name: string;
+  slug: string;
+  description: string;
+  imageUrl: string;
+  _count?: {
+    products: number;
+  };
+}
+
+export interface Product {
+  id: string;
+  name: string;
+  slug: string;
+  description: string;
+  price: number | string; // Prisma Decimal llega como string en JSON
+  comparePrice?: number | string | null;
+  stock: number;
+  sku?: string | null;
+  images: string[];
+  isFeatured: boolean;
+  isActive: boolean;
+  categoryId: number;
+  category: Pick<Category, 'name' | 'slug'>;
+}
+
+export interface CartItem {
+  id: string;
+  name: string;
+  price: number;
+  image: string;
+  quantity: number;
+  maxQuantity?: number; // Cantidad máxima disponible en stock
+}
+
+export interface ShippingAddress {
+  name: string;
+  address: string;
+  city: string;
+  country: string;
+  zip: string;
+  phone?: string;
+  notes?: string;
+}
+
+// Payload que enviamos al backend /api/orders
+export interface CheckoutPayload {
+  items?: Array<{
+    productId: string;
+    quantity: number;
+  }>;
+  shippingAddress: ShippingAddress;
+}
+
+export interface CartResponse {
+  items: Array<{
+    id: string;
+    productId: string;
+    quantity: number;
+    product: Product;
+  }>;
+  total: number;
+}
+
+// Respuesta del backend al crear una orden
+export interface CheckoutResponse {
+  orderId: string;
+  checkoutUrl: string | null;
+  paymentLink: string | null;
+}
+
+export interface OrderResponse {
+  orderId: string;
+  checkoutUrl: string | null;
+  paymentLink: string | null;
+}
+
+export interface PaymentStatusResponse {
+  orderId: string;
+  orderStatus: 'PENDING' | 'PAID' | 'PROCESSING' | 'SHIPPED' | 'DELIVERED' | 'CANCELLED' | 'REFUNDED';
+  boldStatus: 'APPROVED' | 'REJECTED' | 'PENDING' | 'UNKNOWN';
+  paymentLink: string | null;
+  checkoutUrl: string | null;
+  transactionId: string | null;
+  message: string;
+  orderData?: {
+    id: string;
+    status: string;
+    total: string;
+    subtotal: string;
+    shipping: string;
+    items: Array<{
+      quantity: number;
+      unitPrice: string;
+      product: {
+        name: string;
+        images: string[];
+      };
+    }>;
+  };
+}
+
+// Respuesta paginada de /api/products
+export interface PaginatedProducts {
+  data: Product[];
+  meta: {
+    total: number;
+    page: number;
+    limit: number;
+    totalPages: number;
+  };
+}
+
+export type SiteMediaType = 'IMAGE' | 'VIDEO';
+
+export type SiteMediaPlacement =
+  | 'HERO_BACKGROUND'
+  | 'CATALOG_SUPPORT'
+  | 'ABOUT_SUPPORT'
+  | 'CONTACT_SUPPORT'
+  | 'CUBE_FACE';
+
+export interface SiteMedia {
+  id: string;
+  placement: SiteMediaPlacement;
+  type: SiteMediaType;
+  title: string;
+  subtitle?: string | null;
+  url: string;
+  posterUrl?: string | null;
+  altText?: string | null;
+  isActive: boolean;
+  sortOrder: number;
+}

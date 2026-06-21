@@ -1,0 +1,112 @@
+# Dependencies
+node_modules/
+**/node_modules/
+
+# Environment and secrets (NUNCA subir)
+.env
+.env.*
+*.env
+*.env.*
+**/.env
+**/.env.*
+**/*.env
+**/*.env.*
+!.env.example
+!**/.env.example
+
+# Vercel local project metadata
+.vercel/
+**/.vercel/
+
+# Secret material / credentials
+*.pem
+*.key
+*.key.json
+*.crt
+*.cer
+*.p12
+*.pfx
+*.jks
+*.keystore
+*.mobileprovision
+*.auth
+*.token
+*.secret
+*.secrets
+*_secret*
+*_secrets*
+*credentials*
+*service-account*
+access_token.txt
+refresh_token.txt
+id_token.txt
+.envrc
+
+# Build outputs
+dist/
+build/
+**/dist/
+**/build/
+
+# Uploads locales
+backend/uploads/*
+!backend/uploads/.gitkeep
+frontend/assets/uploads/
+
+# Logs
+logs/
+*.log
+*.tmp
+*.bak
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.vscode/settings.json
+.idea/
+*.suo
+*.ntvs*
+
+# TypeScript
+*.tsbuildinfo
+
+# Prisma / local databases
+*.db
+*.db-journal
+*.sqlite
+*.sqlite3
+
+# Coverage and caches
+coverage/
+.cache/
+.turbo/
+.vite/
+.next/
+
+# Backend
+backend/node_modules/
+backend/dist/
+backend/.env
+backend/.env.*
+!backend/.env.example
+
+# Test and QA files
+TEST_REPORT.md
+*.ps1
+test_*.ps1
+debug_*.ps1
+final_*.ps1
+*_test.txt
+product_id.txt
+product_slug.txt
+
+# HTTP test files
+*.http
+*.rest
